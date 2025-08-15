@@ -3,10 +3,12 @@ data "aws_ami" "ubuntu" {
     most_recent = truefilter {
         name   = "name"
         values = ["ubuntu/images/hvm-ssd/*20.04-amd64-server-*"]
-    }filter {
+    }
+    filter {
         name   = "virtualization-type"
         values = ["hvm"]
-    }owners = ["099720109477"] # Canonical
+    }
+    owners = ["099720109477"] # Canonical
 }
 # provision to us-east-1 region
 provider "aws" {
