@@ -8,7 +8,7 @@ resource "kubernetes_service_v1" "app1_svc" {
   ]
   spec {
     selector = {
-      app = kubernetes_pod_v1.app1.metadata.labels.app
+      app = kubernetes_pod_v1.app1.metadata.0.labels.app
     }
     port {
       port = 5678
@@ -27,7 +27,7 @@ resource "kubernetes_service_v1" "app2_svc" {
 
   spec {
     selector = {
-      app = kubernetes_pod_v1.app2.metadata.labels.app
+      app = kubernetes_pod_v1.app2.metadata.0.labels.app
     }
     port {
       port = 5678
