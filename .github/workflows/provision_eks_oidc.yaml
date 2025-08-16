@@ -1,0 +1,36 @@
+name: Provision  eks-cluster-nginx
+on:
+  workflow_dispatch:
+    inputs:
+      tfname:
+        description: Clustername
+        required: true
+        default: 'tfcluster1'
+        type: string
+jobs:
+  provision-eks:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::658643245563:role/gh-role
+          aws-region: us-east-1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+      - name: Terraform Apply
+        id:   apply
+        env:
+          TF_VAR_tfname:  "${{ github.event.inputs.tfname }}"
+        run: |
+          cd eks_nginx_tf
+          terraform init
+          terraform validate
+          terraform plan 
+          terraform apply -auto-approve

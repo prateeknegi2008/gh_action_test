@@ -1,0 +1,4 @@
+variable "tfname" {
+  type = string
+}
+

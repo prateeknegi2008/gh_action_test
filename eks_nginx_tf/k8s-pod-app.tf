@@ -1,0 +1,44 @@
+resource "kubernetes_pod_v1" "app1" {
+  metadata {
+    name = "app1"
+    labels = {
+      "app" = "app1"
+    }
+  }
+
+ depends_on = [
+    module.eks
+  ]
+
+  spec {
+    container {
+      image = "hashicorp/http-echo"
+      name  = "my-app1"
+      args  = ["-text=Hello from my app 1"]
+    }
+  }
+}
+
+
+
+resource "kubernetes_pod_v1" "app2" {
+  metadata {
+    name = "app2"
+    labels = {
+      "app" = "app2"
+    }
+  }
+
+ depends_on = [
+    module.eks
+  ]
+
+  spec {
+    container {
+      image = "hashicorp/http-echo"
+      name  = "my-app2"
+      args  = ["-text=Hello from my app 2"]
+    }
+  }
+}
+
