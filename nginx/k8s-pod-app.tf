@@ -6,10 +6,6 @@ resource "kubernetes_pod_v1" "app1" {
     }
   }
 
- depends_on = [
-    module.eks
-  ]
-
   spec {
     container {
       image = "hashicorp/http-echo"
@@ -28,10 +24,6 @@ resource "kubernetes_pod_v1" "app2" {
       "app" = "app2"
     }
   }
-
- depends_on = [
-    module.eks
-  ]
 
   spec {
     container {

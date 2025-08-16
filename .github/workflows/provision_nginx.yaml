@@ -1,4 +1,4 @@
-name: Provision  eks-cluster-nginx
+name: Provision  nginx
 on:
   workflow_dispatch:
     inputs:
@@ -8,7 +8,7 @@ on:
         default: 'tfcluster1'
         type: string
 jobs:
-  provision-eks:
+  provision-nginx:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -29,7 +29,8 @@ jobs:
         env:
           TF_VAR_tfname:  "${{ github.event.inputs.tfname }}"
         run: |
-          cd eks
+          aws eks update-kubeconfig --name tfcluster1-eks-cluster --region us-east-1
+          cd nginx
           terraform init
           terraform validate
           terraform plan 

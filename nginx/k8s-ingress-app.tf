@@ -4,9 +4,6 @@ resource "kubernetes_ingress_v1" "ingress" {
     name = "simple-fanout-ingress"
   }
 
- depends_on = [
-    module.eks
-  ]
 
   spec {
     ingress_class_name = "nginx"
