@@ -34,7 +34,7 @@ jobs:
         env:
           TF_VAR_tfname:  "${{ github.event.inputs.tfname }}"
         run: |
-          aws eks update-kubeconfig --name tfcluster1-eks-cluster --region us-east-1
+          aws eks update-kubeconfig --name "${{ github.event.inputs.tfname }}"-eks-cluster --region us-east-1
           cd nginx
           terraform init
           terraform validate
